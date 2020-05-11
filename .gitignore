@@ -1,0 +1,7 @@
+data/calendar.csv
+data/sales_train_validation.csv
+data/sample_submission.csv
+data/sell_prices.csv
+misc/.gitignore
+notebooks/.ipynb_checkpoints/second_playground-checkpoint.ipynb
+notebooks/.ipynb_checkpoints/first_playground-checkpoint.ipynb
