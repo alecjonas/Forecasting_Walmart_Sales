@@ -5,3 +5,4 @@ data/sell_prices.csv
 misc/.gitignore
 notebooks/.ipynb_checkpoints/second_playground-checkpoint.ipynb
 notebooks/.ipynb_checkpoints/first_playground-checkpoint.ipynb
+notebooks/.ipynb_checkpoints/forecasting_1-checkpoint.ipynb
