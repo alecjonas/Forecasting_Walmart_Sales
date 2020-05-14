@@ -1,19 +1,19 @@
 # Forecasting Walmart Sales
 
 ## Question
-How accurately can I predict Walmart sales down to the day?
+Given a data set with five and a half years of product sales, how accurately can I predict Walmart sales down to the day?
 
 ## Introduction
 In 2019, Walmart was the largest retailer in sales beating second place by more than three times (Amazon). Behind the scenes, a massive support operation is conducted in order to make sure customer demand is met with appropriate customer service and supply of product. 
 
-The goal of my project is to use real Walmart data to build a forecasting model that can accurately predict sales for any given product in any given month. The application of this model will allow for better customer service and increased sales. It also will allow for a better understanding of the trend and seasonality of Walmart's business. This information will be able to help staff departments in order to meet customer demand, and also make sure that the appropriate supply from vendors is maintained to meet that demand. The information to be gained from this model have vast benefits and has a wide breadth of usage.
+The goal of my project is to use real Walmart data to build a forecasting model that can accurately predict sales for any given product in any given month. The application of this model will allow for better customer service and increased sales. It also will allow for a better understanding of the trend and seasonality of Walmart's business. This information will be able to help staff departments in order to meet customer demand, and also make sure that the appropriate supply from vendors is maintained to meet that demand. The information to be gained from this model has many benefits and a wide breadth of application.
 
-The complexities of this model are vast for a multitude of reasons. The future contains an element of unpredictability. However, elements can be extrapolated from historical data which can be used to make predictions about the future. For example, I analyzed the overall sales trend for Walmart in addition to seasonality of sales (i.e. do some products sell better in summer than winter). Additionally, I put a lot of thought into figuring out how to not only forecast, but also apply that prediction to a monthly distribution that can estimate daily product sales. My methodology, analysis, and results will be explored in the remainder of this report.
+The complexities of this model are vast for a multitude of reasons. The future contains an element of unpredictability. However, elements can be extrapolated from historical data which can be used to make predictions about the future. My methodology, analysis, and results will be explored in the remainder of this report.
 
 ## Data
 The data set comes from Kaggle.com. It contains three files: 1) The training set (to be discussed), 2) A Calendar, and 3) a list of products and their sales price. The data set covers sales from Jan 2011- April 2016.
 
-The majority of my work was done in the training data set. This file contains a data set, which is 30490 rows by 1919 columns. This means that there are 30,490 individual products and 1,913 days of sales for each product. The remaining six columns include a product id, item id, department id, , category id, store id, and state id. The data set contains product information from 3 states (California, Texas, and Wisconsin), 3 categories of products (Food, Hobby, and Household), 7 departments (3 for the Food category, and 2 each for Hobby and Household), and 10 stores (4 in CA, and 3 in TX/WI). It's also important to note that Walmart anonymized their data so product IDs do not give much information about the actual product.
+The majority of my work was done in the training data set. This file contains a data set, which is 30,490 rows by 1,919 columns. This means that there are 30,490 individual products and 1,913 days of sales for each product. The remaining six columns include a product id, item id, department id, , category id, store id, and state id. The data set contains product information from 3 states (California, Texas, and Wisconsin), 3 categories of products (Food, Hobby, and Household), 7 departments (3 for the Food category, and 2 each for Hobby and Household), and 10 stores (4 in CA, and 3 in TX/WI). It's also important to note that Walmart anonymized their data so product IDs do not give much information about the actual product.
 
 ## Forecasting Methodology
 For this project, I used time series analysis. While there are several methods to forecast using time series, I used a trend and seasonality approach. In a given category, I made a line of best fit and set that as the trend. I then extrapolated the seasonality, which remains constant over time, and added in that component to the trend depending on which month I was forecasting. I also decided to forecast on the monthly sales, as opposed to the daily sales, in order to smooth the trend and seasonality.
@@ -32,15 +32,15 @@ Here is a plot of the CA3 store and Foods3 department sales and a trendline:
 Here is a plot of the raw data, trend, seasonality, and residuals for the CA3 store and Foods3 department sales:
 ![Image](images/ca3_foods3_tsr.png)
 
-The second and fourth graph is a trend, seasonal, and residual plot. I used the seasonality component and the blue trendline from the first and third graph to conduct my analysis.
+The second and fourth graph is a trend, seasonal, and residual plot. I used the seasonality component from these plots and the blue trendline from the first and third graph to conduct my analysis.
 
 The overarching forecasting was conducted this way:
 * Forecast = Trend + Seasonality
 
-Since the trendline is a straight line, it can be used to predict the future. And then, the seasonality is added in to adjust for the month.
+Since the trendline is a straight line, it can be used to predict the future. And then the seasonality is added in to adjust for the month.
 
 ## Analysis
-Because Walmarts sales are dependent on the departments and the stores (which are influenced by the categories, states, and overall Walmart trends), I spent a lot of time thinking about how I would A) generate a forecast and then B) apply that forecast to the individual level. I decided to forecast at a higher level almost immediately because I felt that it would be more volatile to forecast on the individual product level since many items only sparsely sell during the month. For all of my analysis I tested my accuracy by predicting February and March 2016 since I had data for these months already. This allowed me to assess any error and make adjustments.
+Because Walmarts sales are dependent on the departments and the stores (which are influenced by the categories, states, and overall Walmart trends), I spent a lot of time thinking about how I would A) generate a forecast and then B) apply that forecast to the individual level. I decided to forecast at a higher level almost immediately because I felt that it would be more volatile to forecast on the individual product level since many items only sparsely sell during the month. For all of my analysis, I tested my accuracy by predicting February and March 2016 since I had data for these months already. This allowed me to assess any error and make adjustments.
 
 My original blueprint was as follows:
 
@@ -49,10 +49,6 @@ My original blueprint was as follows:
 3) Use the store/department level forecast to figure out individual product sales for the month
 4) Figure out how products typically sell through the course of the month to find the daily sales
 
-Here is the overall monthly sales for Walmart at the highest level with a trendline:
-
-Here is overall monthly sales for Walmart at the highest level broken down to the trend, seasonality, and residual components:
-
 For this test, I decided to predict along the following pipeline:
 1) Total Sales for February
 2) Percent of total sales allocated to the Foods Category
@@ -60,7 +56,7 @@ For this test, I decided to predict along the following pipeline:
 4) Percent of total Foods 3 Department sales allocated to California.
 5) Percent of total California sales allocated to the CA3 store.
 
-Here are some images that represent the different percentages that I multiplied to the total sales for Feb. I used the mean for the different sections, but I tried to think carefully about where the mean should be.
+Here are some images that represent the different percentages that I multiplied to the total sales for Feb. I used the mean for the different sections, but I tried to think carefully about where the mean should be. Sometimes, I used all historical data. Other times, I used part of the historical data to account for major swings in sales.
 
 ![Image](images/breakdown_of_major_categories.png)
 
@@ -72,19 +68,19 @@ Here are some images that represent the different percentages that I multiplied 
 
 (See the results section below for forecast results)
 
-After I made my forecast for the month of February, I thought that by making several assumptions about how the forecast at the highest level would trickle down to the lower level that there would be some data loss. I figured it would be a worthwhile exercise forecasting directly on the CA3 store and Foods3 Department and comparing my results to the trickle down method from before. 
+After I made my forecast for the month of February, I got concerned that by trickling down the pipeline that there would be data loss (due to the assumptions made such as the means). I decided that I needed to forecast directly on the CA3 store and Foods3 Department and and then compare my results to the trickle down method. By comparing two forecasting methods, I increased the likelihood that I would be using the most accurate forecast. 
 
-I compared my results from the trickle down forecast to the direct forcast and noticed that my accuracy was significantly improved. I decided to purse this forecasting strategy as my primary method from this point forward.
+I compared my results from the trickle down forecast to the direct forcast and noticed that my accuracy was significantly improved forecasting directly on the store and department. I decided to purse this forecasting strategy as my primary method from this point forward.
 
 Now that I had my forecast at the Store and Department level, it was now time to work on breaking that forecast down to the individual product level. The workflow that I used is as follows:
 
 1) Look at the 2015 breakdown for what percentage of total sales were associated with a given item. At this location and in this department, there are about 800 products. I decided to look at 2015 only because not every product was sold every year.
-2) Look at the daily distribution in a given month by analyzing how the product sold over time and averaging that together.
-3) Multiple the forecast to the product percentage and then use the daily distribution to scatter the sales over the month.
+2) Look at the daily distribution in a given month by analyzing how the product sold every day in the month and averaging that together (for example, average what percent of total sales for the product occured on Feb 1 from 2011-2015).
+3) Multiply the forecast to the product percentage and then use the daily distribution to scatter the sales over the month.
 
 (See the results for more information)
 
-You'll see in the results section that without any rounding, I am predicting partial units to be sold. Of course this isn't possible, so I rounded the results. It turns out that the rounding can have a significant effect on the final units sold (for example, moving 16.4 to 12 units or 16.4 to 24 units). There is still work to be done to experiment on the best model.
+You'll see in the results section that without any rounding, I am predicting partial units to be sold. Of course this isn't possible, so I rounded the results. It turns out that the rounding can have a significant effect on the final units sold (for example, rounding can change 16.4 units to 12 units or 16.4 units to 24 units depending on how I round).
 
 I discovered that even though the workflow worked as intended, there is still more room to conduct more tests to assess the accuracy of the model. For the sake of time, I was only able to test this total workflow on one sample item.
 
