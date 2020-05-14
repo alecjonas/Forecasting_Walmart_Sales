@@ -56,8 +56,9 @@ def make_date_time(Series):
 #Below 5 functions make a graph with a linear trendline
 def plot_trend_data(ax, name, series):
     'Function Credit to Matt Drury'
-    ax.plot(series.index, series)
+    ax.plot(series.index, series, label = 'Sales')
     ax.set_title(name)
+    ax.legend()
     
 def to_col_vector(arr):
     """Convert a one dimensional numpy array to a column vector.
@@ -81,7 +82,8 @@ def plot_linear_trend(ax, name, series):
     'Function Credit to Matt Drury'
     linear_trend = fit_linear_trend(series)
     plot_trend_data(ax, name, series)
-    ax.plot(series.index, linear_trend)
+    ax.plot(series.index, linear_trend, label = 'Trend')
+    ax.legend()
 
 def detrended_graph(Series):
     'Function Credit to Matt Drury'
@@ -265,6 +267,7 @@ class graphs():
         plot_linear_trend(ax, self.name, resample_series(self.series, self.interval))
         ax.set_xlabel('Time')
         ax.set_ylabel('Sales')
+        ax.legend()
         plt.tight_layout()
         
 def make_series(store_id, dept_id):
