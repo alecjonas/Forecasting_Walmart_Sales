@@ -126,7 +126,6 @@ Daily Distribution Results (rounding up at >= .4):
 
 ![Image](images/results_flex_round.png)
 
-It's also important to note that the actual daily distribution doesn't seem to align so well. In the future, it will be worthwhile to examine the weekly patterns on top of the monthly patterns.
 
 ## Conclusion
 In conclusion, I accomplished my primary objective which was to build a model that can predict unit sales. I was able to build my model in a way where any individual product can be tested and reviewed.
