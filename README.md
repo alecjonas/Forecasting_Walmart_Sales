@@ -126,6 +126,8 @@ Daily Distribution Results (rounding up at >= .4):
 
 ![Image](images/results_flex_round.png)
 
+It's also important to note that the actual daily distribution doesn't seem to align so well. In the future, it will be worthwhile to examine the weekly patterns on top of the monthly patterns.
+
 ## Conclusion
 In conclusion, I accomplished my primary objective which was to build a model that can predict unit sales. I was able to build my model in a way where any individual product can be tested and reviewed.
 
@@ -133,6 +135,8 @@ To Do:
 * Conduct more tests to establish the validity of the model
 * Explore more complex forecasting methodology such as ARIMA
 * Continue to adjust and review how the daily distribution compares to the final results
+* Examine weekly patterns in order to improve the daily distribution
+* Adjust daily distribution for holidays and events that may affect sales
 
 This project was very exciting to work on and I look forward to continuing my analysis. The implications for this model have major strategic benefits to businesses.
 
