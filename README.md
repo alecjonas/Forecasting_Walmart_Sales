@@ -37,7 +37,7 @@ The second and fourth graph is a trend, seasonal, and residual plot. I used the 
 The overarching forecasting was conducted this way:
 * Forecast = Trend + Seasonality
 
-Since the trendline is a straight line, it can be used to predict the future. And then the seasonality is added in to adjust for the month.
+Since the trendline is a straight line (blue line in graphs), it can be used to predict the future. And then the seasonality is added in to adjust for the month.
 
 ## Analysis
 Because Walmarts sales are dependent on the departments and the stores (which are influenced by the categories, states, and overall Walmart trends), I spent a lot of time thinking about how I would A) generate a forecast and then B) apply that forecast to the individual level. I decided to forecast at a higher level almost immediately because I felt that it would be more volatile to forecast on the individual product level since many items only sparsely sell during the month. For all of my analysis, I tested my accuracy by predicting February and March 2016 since I had data for these months already. This allowed me to assess any error and make adjustments.
@@ -52,21 +52,31 @@ My original blueprint was as follows:
 For this test, I decided to predict along the following pipeline:
 1) Total Sales for February
 2) Percent of total sales allocated to the Foods Category
-3) Percent of total Foods sales allocated to the Foods 3 department.
+3) Percent of total Foods sales allocated to the Foods 3 Department across all Stores and States.
 4) Percent of total Foods 3 Department sales allocated to California.
 5) Percent of total California sales allocated to the CA3 store.
 
-Here are some images that represent the different percentages that I multiplied to the total sales for Feb. I used the mean for the different sections, but I tried to think carefully about where the mean should be. Sometimes, I used all historical data. Other times, I used part of the historical data to account for major swings in sales.
+This trickle down approach is a method for taking a high level forecast, multiplying by the means for various sub categories, until I arrive at a specific store and department. Below are visualizations for the distribution of sales among different categories. The dotted lines represent the mean for that specific category (the mean is what I multiply my forecast by). Notice that in some graphs the means represent the entire historical data, and in other graphs the mean starts in a different spot. This is because some categories had major swings at some point in the past and I wanted the means to be believable for predicting the future.
 
-![Image](images/breakdown_of_major_categories.png)
+Visualization for breakdown between the major product categories (left) and the states (right):
+![Image](images/cats_states.png)
 
-![Image](images/breakdown_of_food_cat.png)
+Visualization for the breakdown within each category (for example, there are three food departments within the entire food category):
+![Image](images/sub_cats.png)
 
-![Image](images/breakdown_of_states.png)
+Visualization for the breakdown within each store in each state:
+![Image](images/sub_stores.png)
 
-![Image](images/breakdown_of_CA_cat.png)
+Here is an example workflow, which I used to conduct a test:
 
-(See the results section below for forecast results)
+| Trickle Down Forecast | Path |
+| ----------- | ----------- |
+| Feb 2016 Forecast | 1,166,909 Units |
+| Food Category (orange dotted line in 'Major Categories') | x 67% | 
+| Food 3 Department (purple dotted line in 'Foods Category') | x 70% |
+| California State (orange dotted line in 'States') | x 43% | 
+| CA3 Store (purple dotted line in 'CA Stores') | x 39% |
+| Forecast for CA3 store Foods 3 Dept | = 92,050 Units | 
 
 After I made my forecast for the month of February, I got concerned that by trickling down the pipeline that there would be data loss (due to the assumptions made such as the means). I decided that I needed to forecast directly on the CA3 store and Foods3 Department and and then compare my results to the trickle down method. By comparing two forecasting methods, I increased the likelihood that I would be using the most accurate forecast. 
 
@@ -87,48 +97,30 @@ I discovered that even though the workflow worked as intended, there is still mo
 
 ## Results
 
-| Trickle Down Forecast | Path |
+| Trickle Down Forecast for Total Walmart Sales Feb/2016 | Result |
 | ----------- | ----------- |
-| Feb 2016 Forecast | 1,166,909 Units |
-| Food Category | x 67% | 
-| Food 3 Department | x 70% |
-| California State | x 43% | 
-| CA3 Store | x 39% |
-| Forecast for CA3 store Foods 3 Dept | = 92,050 Units | 
-
-| Trickle Down Forecast | Result |
-| ----------- | ----------- |
-| Feb 2016 Forecast | 1,166,909 Units |
-| Feb 2016 Actual | 1,264,510 Units|
+| Forecast | 1,166,909 Units |
+| Actual | 1,264,510 Units|
 | Error | 7.8%|
 
-| Trickle Down Forecast | Result |
+| Trickle Down Forecast for CA3 Store Foods 3 Dept Feb/2016 | Result |
 | ----------- | ----------- |
-| Trickle Down Forecast Feb/2016 for CA3 store Foods3 Dept | 92,050 Units |
-| Actual Feb/2016 for CA3 store Foods3 Dept | 85,925 Units|
+| Forecast | 92,050 Units |
+| Actual  | 85,925 Units|
 | Error | 7.1%|
 
-| Trickle Down Forecast | Result |
+| Direct Forecast On Store and Department Feb/2016 | Result |
 | ----------- | ----------- |
-| Direct Forecast for CA3 store Foods3 Dept | 85,647 Units |
-| Actual Feb/2016 for CA3 store Foods3 Dept | 85,925 Units|
+| Forecast | 85,647 Units |
+| Actual   | 85,925 Units|
 | Error | .32%| 
 
-Daily Distribution Results (no rounding):
+The image below shows how the daily distribution results vary depending on how the forecast is rounded (each row represents a day, and the bottom row represents the total). The forecast has to be rounded in some fashion because Walmart can only sell products in whole units.  The first column is the forecast, the second is rounding up at .5, the third column is rounding up at .4, and the fourth column contains the actual sales for this product in February 2016.
 
-![Image](images/results_no_round.png)
-
-Daily Distribution Results (rounding up at >= .5):
-
-![Image](images/results_reg_round.png)
-
-Daily Distribution Results (rounding up at >= .4):
-
-![Image](images/results_flex_round.png)
-
+![Image](images/all_rounding.png)
 
 ## Conclusion
-In conclusion, I accomplished my primary objective which was to build a model that can predict unit sales. I was able to build my model in a way where any individual product can be tested and reviewed.
+In conclusion, I accomplished my primary objective which was to build a model that can predict unit sales. I was able to build my model in a way where any individual product can be tested and reviewed. I learned that sales predictions for indivudal products can be difficult to predict, but the monthly level sales have more confidence.
 
 To Do:
 * Conduct more tests to establish the validity of the model
