@@ -245,7 +245,7 @@ def naive_monthly_distribution(store, department, product_id, lst_of_years, mont
             newDF.iloc[-1, -1] = newDF.iloc[-1, -1] - check
     return newDF
 
-class graphs():
+class Graphs():
     '''
     Takes some of the above functions and plots a graph.
     A little easier to use than the above functions.
