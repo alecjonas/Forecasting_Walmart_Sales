@@ -115,6 +115,38 @@ I discovered that even though the workflow worked as intended, there is still mo
 | Actual   | 85,925 Units|
 | Error | .32%| 
 
+The above results were specific for only one store and one department in that store. After deciding to pursue a direct trend & seasonality forecast on stores and departments directly, I decided to examine the errors accross all stores/department.
+
+![Image](images/all_error_hist.png)
+
+As you can see, the mean forecasting error is 10%, significantly higher than the .32% I presented above. The histogram above shows that the majority of stores and departments have fairly low errors, but the mean is being driven higher by a smaller group.
+
+The series of histograms below show the forecasting errors across each state. The mean forecasting errors are roughly equal.
+
+![Image](images/states_hist.png)
+
+The following series of graphs show the mean forecasting error for each store, and then breaks down the forecasting error for each department in that store.
+
+![Image](images/ca_stores_bar.png)
+
+![Image](images/tx_store_bar.png)
+
+![Image](images/WI_store_bar.png)
+
+You can start to see that some departments are more difficult to forecast than others. For example, the Foods1, Foods2, and Hobbies2 appear to have higher errors across all stores.
+
+The following series of graphs show the mean forecasting error for each department, and then breaks down the forecasting error for each store.
+
+![Image](images/foods_bar.png)
+
+![Image](images/hobbies_bar.png)
+
+![Image](images/household_bar.png)
+
+It appears some stores are more problematic than others, such as TX1 and CA2. These graphs will be useful to think about how to tailor forecasting approaches for each department and store. A one size fits all model may not be appropriate for this project.
+
+My final goal is to be able to develop a prediction for sales for any given product in the future, however. I decided to do a deeper dive on the CA3 Store and Foods3 Department.
+
 The image below shows how the daily distribution results vary depending on how the forecast is rounded (each row represents a day, and the bottom row represents the total). The forecast has to be rounded in some fashion because Walmart can only sell products in whole units.  The first column is the forecast, the second is rounding up at .5, the third column is rounding up at .4, and the fourth column contains the actual sales for this product in February 2016.
 
 ![Image](images/all_rounding.png)
