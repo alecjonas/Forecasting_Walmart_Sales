@@ -110,7 +110,7 @@ The image below shows how the daily distribution results vary depending on how t
 
 ![Image](images/all_rounding.png)
 
-I discovered that even though the workflow worked as intended, there is still more work required to determine which rounding method should be selected moving forward.
+I discovered that even though the workflow worked as intended, there is still more work required to determine which rounding method should be selected moving forward. Additionally, examining weekly patterns in addition to monthly patterns may help predict forecasted sales on days where products were actually sold. Notice that the days where a sale is forecasted doesn't always line up well with the actual sale. Some individual products may not have any sort of historical trend in sales, making it very difficult to improve accuracy in this section.
 
 ## Forecasting Error Examination
 
