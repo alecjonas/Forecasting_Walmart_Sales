@@ -26,12 +26,6 @@ Here is a plot of Walmart's total sales and a trendline:
 Here is a plot of the raw data, trend, seasonality, and residuals for Walmart's total sales:
 ![Image](images/big_all_tsr.png)
 
-Here is a plot of the CA3 store and Foods3 department sales and a trendline:
-![Image](images/ca3_foods3_lin_trend.png)
-
-Here is a plot of the raw data, trend, seasonality, and residuals for the CA3 store and Foods3 department sales:
-![Image](images/ca3_foods3_tsr.png)
-
 The second and fourth graph is a trend, seasonal, and residual plot. I used the seasonality component from these plots and the blue trendline from the first and third graph to conduct my analysis.
 
 The overarching forecasting was conducted this way:
@@ -78,24 +72,15 @@ Here is an example workflow, which I used to conduct a test:
 | CA3 Store (purple dotted line in 'CA Stores') | x 39% |
 | Forecast for CA3 store Foods 3 Dept | = 92,050 Units | 
 
-After I made my forecast for the month of February, I got concerned that by trickling down the pipeline that there would be data loss (due to the assumptions made such as the means). I decided that I needed to forecast directly on the CA3 store and Foods3 Department and and then compare my results to the trickle down method. By comparing two forecasting methods, I increased the likelihood that I would be using the most accurate forecast. 
+After I made my forecast for the month of February, I was concerned that by trickling down the pipeline the model was experiencing data leakage (due to the assumptions made by multiplying by the means). I decided that I needed to forecast directly on the CA3 store and Foods3 Department and and then compare my results to the trickle down method. By comparing two forecasting methods, I increased the likelihood that I would be using the most accurate forecast. 
 
-I compared my results from the trickle down forecast to the direct forcast and noticed that my accuracy was significantly improved forecasting directly on the store and department. I decided to purse this forecasting strategy as my primary method from this point forward.
+Here is a plot of the CA3 store and Foods3 department sales and a trendline:
+![Image](images/ca3_foods3_lin_trend.png)
 
-Now that I had my forecast at the Store and Department level, it was now time to work on breaking that forecast down to the individual product level. The workflow that I used is as follows:
+Here is a plot of the raw data, trend, seasonality, and residuals for the CA3 store and Foods3 department sales:
+![Image](images/ca3_foods3_tsr.png)
 
-1) Look at the 2015 breakdown for what percentage of total sales were associated with a given item. At this location and in this department, there are about 800 products. I decided to look at 2015 only because not every product was sold every year.
-2) Look at the daily distribution in a given month by analyzing how the product sold every day in the month and averaging that together (for example, average what percent of total sales for the product occured on Feb 1 from 2011-2015).
-3) Multiply the forecast to the product percentage and then use the daily distribution to scatter the sales over the month.
-
-(See the results for more information)
-
-You'll see in the results section that without any rounding, I am predicting partial units to be sold. Of course this isn't possible, so I rounded the results. It turns out that the rounding can have a significant effect on the final units sold (for example, rounding can change 16.4 units to 12 units or 16.4 units to 24 units depending on how I round).
-
-I discovered that even though the workflow worked as intended, there is still more room to conduct more tests to assess the accuracy of the model. For the sake of time, I was only able to test this total workflow on one sample item.
-
-
-## Results
+I compared my results from the trickle down forecast to the direct forcast and noticed that my accuracy was significantly improved forecasting directly on the store and department (as opposed to any trickle down). I decided to purse the direct forecasting strategy as my primary method from this point forward.
 
 | Trickle Down Forecast for Total Walmart Sales Feb/2016 | Result |
 | ----------- | ----------- |
@@ -115,11 +100,25 @@ I discovered that even though the workflow worked as intended, there is still mo
 | Actual   | 85,925 Units|
 | Error | .32%| 
 
-The above results were specific for only one store and one department in that store. After deciding to pursue a direct trend & seasonality forecast on stores and departments directly, I decided to examine the errors accross all stores/department.
+Now that I had my forecast at the Store and Department level, it was now time to work on breaking that forecast down to the individual product level. The workflow that I used is as follows:
+
+1) Look at the 2015 breakdown for what percentage of total sales were associated with a given item. At this location and in this department, there are about 800 products. I decided to look at 2015 only because not every product was sold every year.
+2) Look at the daily distribution in a given month by analyzing how the product sold every day in the month and averaging that together (for example, average what percent of total sales for the product occured on Feb 1 from 2011-2015).
+3) Multiply the forecast to the product percentage and then use the daily distribution to scatter the sales over the month.
+
+The image below shows how the daily distribution results vary depending on how the forecast is rounded (each row represents a day, and the bottom row represents the total). The forecast has to be rounded in some fashion because Walmart can only sell products in whole units.  The first column is the forecast, the second is rounding up at .5, the third column is rounding up at .4, and the fourth column contains the actual sales for this product in February 2016. Notice how the results vary when the rounding criteria changes.
+
+![Image](images/all_rounding.png)
+
+I discovered that even though the workflow worked as intended, there is still more work required to determine which rounding method should be selected moving forward.
+
+## Forecasting Error Examination
+
+While I conducted a deeper dive specifically on the Foods3 Department in the CA3 store, I nevertheless examined the errors accross all stores/department. There are 70 department and store combinations in the data set.
 
 ![Image](images/all_error_hist.png)
 
-As you can see, the mean forecasting error is 10%, significantly higher than the .32% I presented above. The histogram above shows that the majority of stores and departments have fairly low errors, but the mean is being driven higher by a smaller group.
+The histogram shows that the mean forecasting error is 10% across all stores/departments (the .32% above was specific to the Foods3 Department in the CA3 store, which is just one combination out of 70 total). The histogram above shows that the majority of stores and departments have fairly low errors, but the mean is being driven higher by a smaller group. Below is a deeper dive to analyze the spread of forecasting errors accross all stores/departments.
 
 The series of histograms below show the forecasting errors across each state. The mean forecasting errors are roughly equal.
 
@@ -145,18 +144,13 @@ The following series of graphs show the mean forecasting error for each departme
 
 It appears some stores are more problematic than others, such as TX1 and CA2. These graphs will be useful to think about how to tailor forecasting approaches for each department and store. A one size fits all model may not be appropriate for this project.
 
-My final goal is to be able to develop a prediction for sales for any given product in the future, however. I decided to do a deeper dive on the CA3 Store and Foods3 Department.
-
-The image below shows how the daily distribution results vary depending on how the forecast is rounded (each row represents a day, and the bottom row represents the total). The forecast has to be rounded in some fashion because Walmart can only sell products in whole units.  The first column is the forecast, the second is rounding up at .5, the third column is rounding up at .4, and the fourth column contains the actual sales for this product in February 2016.
-
-![Image](images/all_rounding.png)
-
 ## Conclusion
 In conclusion, I accomplished my primary objective which was to build a model that can predict unit sales. I was able to build my model in a way where any individual product can be tested and reviewed. I learned that sales predictions for indivudal products can be difficult to predict, but the monthly level sales have more confidence.
 
 To Do:
 * Conduct more tests to establish the validity of the model
-* Explore more complex forecasting methodology such as ARIMA
+* Tailor forecasts for each department and store
+* Explore more complex forecasting models including ARIMA and LSTM
 * Continue to adjust and review how the daily distribution compares to the final results
 * Examine weekly patterns in order to improve the daily distribution
 * Adjust daily distribution for holidays and events that may affect sales
