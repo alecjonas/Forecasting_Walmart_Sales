@@ -442,6 +442,27 @@ def no_rounding_comparison(df):
     df2 = df2.drop(columns = ['year', 'month', 'day', 'date'])
     return df2
 
+#New as of 5/17/20
+def series_setup(store_id, dept_id):
+    lst = []
+    for i in store_id:
+        count = 0
+        while count != len(dept_id):
+            lst.append([i, dept_id[count]])
+            count += 1
+    return lst
+
+#New as of 5/17/20
+def store_error_hist(arr, name):
+    print(f'{name} store mean forecasting error is {round(arr.mean(),2)}')
+
+    fig, ax = plt.subplots(figsize = (12,10))
+    ax.hist(arr)
+    ax.set_title(f'{name} Store Forecasting Error Histogram')
+    ax.set_ylabel('Count')
+    ax.set_xlabel('Errors')
+    plt.show()
+
 if __name__ == '__main__':
     sales_train = pd.read_csv('../data/sales_train_validation.csv')
     sell_prices = pd.read_csv('../data/sell_prices.csv')
@@ -679,3 +700,20 @@ if __name__ == '__main__':
     wi1_mean = sales_store_wi.iloc[22:, 4].mean()
     wi2_mean = sales_store_wi.iloc[22:, 5].mean()
     wi3_mean = sales_store_wi.iloc[22:, 6].mean()
+
+    #New...as of 5/17/20
+    dept_id = sales_train.dept_id.unique()
+    cat_id = sales_train.cat_id.unique()
+    store_id = sales_train.store_id.unique()
+    state_id = sales_train.state_id.unique()
+
+    series_lst = []
+    for i in series_setup(store_id, dept_id):
+        series_lst.append(make_series(i[0], i[1]))
+        
+    forecast_lst = []
+    for i in series_lst:
+        forecast_lst.append(abs(make_forecast(i, 'M', 2, 1, 2)[1]))
+        
+    arr = np.array(forecast_lst)
+    #arr.mean()

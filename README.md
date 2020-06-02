@@ -118,7 +118,7 @@ While I conducted a deeper dive specifically on the Foods3 Department in the CA3
 
 ![Image](images/all_error_hist.png)
 
-The histogram shows that the mean forecasting error is 10% across all stores/departments (the .32% above was specific to the Foods3 Department in the CA3 store, which is just one combination out of 70 total). The histogram above shows that the majority of stores and departments have fairly low errors, but the mean is being driven higher by a smaller group. Below is a deeper dive to analyze the spread of forecasting errors accross all stores/departments.
+The histogram shows that the mean forecasting error is 10% across all stores/departments (the .32% above was specific to the Foods3 Department in the CA3 store, which is just one combination out of 70 total). The histogram above shows that the majority of stores and departments have fairly low errors, but the mean is being driven higher by a smaller group. Below is a deeper dive to analyze the spread of forecasting errors across all stores/departments.
 
 The series of histograms below show the forecasting errors across each state. The mean forecasting errors are roughly equal.
 
