@@ -190,7 +190,8 @@ def make_forecast(series, interval, num_of_test_periods, forecast_period, foreca
     trend = slope*(len(train_series) + forecast_period) + intercept
     sd = sm.tsa.seasonal_decompose(df)
     seasonal_pattern = sd.seasonal[11:23]
-    seasonal = seasonal_pattern.loc[seasonal_pattern.index.month == forecast_month].iloc[0, 0]
+    #seasonal = seasonal_pattern.loc[seasonal_pattern.index.month == forecast_month].iloc[0, 0]
+    seasonal = seasonal_pattern.loc[seasonal_pattern.index.month == forecast_month][0]
     forecast = trend + seasonal
     actual = df[-num_of_test_periods:].loc[df[-num_of_test_periods:].index.month == forecast_month].iloc[0, 0]
     error = (forecast-actual)/actual
