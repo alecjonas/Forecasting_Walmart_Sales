@@ -1,5 +1,8 @@
 # Forecasting Walmart Sales
 
+# Update
+I have done significantly more work on this project, including ARIMA Forecasting. I presented further research as my final capstone project for Galvanize, where I attended the Data Science Immersive education program.  Here is the link to my final presentation: https://docs.google.com/presentation/d/13ZtZEwIXH7M4D74AYT27hYj6tkagQIF81RgNl3Ydg98/edit#slide=id.p
+
 ## Question
 Given a data set with five and a half years of product sales, how accurately can I predict Walmart sales down to the day?
 
