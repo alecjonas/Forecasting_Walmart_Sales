@@ -1,10 +1,10 @@
 # Forecasting Walmart Sales
 
 # Update
-I have done significantly more work on this project, including ARIMA Forecasting. I presented further research as my final capstone project for Galvanize, where I attended the Data Science Immersive education program.  Here is the link to my final presentation: https://docs.google.com/presentation/d/13ZtZEwIXH7M4D74AYT27hYj6tkagQIF81RgNl3Ydg98/edit#slide=id.p
+ Here is the link to my final presentation for the Data Science Immersive at Galvanize for my final capstone project: https://docs.google.com/presentation/d/13ZtZEwIXH7M4D74AYT27hYj6tkagQIF81RgNl3Ydg98/edit#slide=id.p
 
-## Question
-Given a data set with five and a half years of product sales, how accurately can I predict Walmart sales down to the day?
+## Goal
+Forecast Walmart Sales.
 
 ## Introduction
 In 2019, Walmart was the largest retailer in sales beating second place by more than three times (Amazon). Behind the scenes, a massive support operation is conducted in order to make sure customer demand is met with appropriate customer service and supply of product. 
@@ -37,7 +37,7 @@ The overarching forecasting was conducted this way:
 Since the trendline is a straight line (blue line in graphs), it can be used to predict the future. And then the seasonality is added in to adjust for the month.
 
 ## Analysis
-Because Walmarts sales are dependent on the departments and the stores (which are influenced by the categories, states, and overall Walmart trends), I spent a lot of time thinking about how I would A) generate a forecast and then B) apply that forecast to the individual level. I decided to forecast at a higher level almost immediately because I felt that it would be more volatile to forecast on the individual product level since many items only sparsely sell during the month. For all of my analysis, I tested my accuracy by predicting February and March 2016 since I had data for these months already. This allowed me to assess any error and make adjustments.
+Because Walmart's sales are dependent on the departments and the stores (which are influenced by the categories, states, and overall Walmart trends), I spent a lot of time thinking about how I would A) generate a forecast and then B) apply that forecast to the individual level. I decided to forecast at a higher level almost immediately because I felt that it would be more volatile to forecast on the individual product level since many items only sparsely sell during the month. For all of my analysis, I tested my accuracy by predicting February and March 2016 since I had data for these months already. This allowed me to assess any error and make adjustments.
 
 My original blueprint was as follows:
 
@@ -147,18 +147,34 @@ The following series of graphs show the mean forecasting error for each departme
 
 It appears some stores are more problematic than others, such as TX1 and CA2. These graphs will be useful to think about how to tailor forecasting approaches for each department and store. A one size fits all model may not be appropriate for this project.
 
+## More Forecasting
+
+After examining the forecasting error, I decided to look at the cause of some of the outliers in the dataset. I found that it was necessary to look at the training time frame and make sure it was appropriate to train on all the data, as opposed to a smaller segment. I found that I was able to reduce the errors this way. However, I found my primary success with using SARIMA Forecasting. For all 70 groups, I estimated the SARIMA Paramters and also the training time frame to minimize forecasting errors. This also helped reduce error substantially. Additionally, I also looked at monthly forecasting performance over a 6 month period.
+
+![Image](images/arima_hist.png)
+
+I was pleased to see that my median forecasting errors were not only lower, but made sense as well. The median forecasting error was lower in Month 1, but increased as time went on. This makes sense given that the further away a prediction is made, the more unpredictable the results. Additionally, the histograms are right skewed, which means that the bulk of my models were producing very low errors.
+
+## The Good, The Bad, and The Ugly
+
+I wanted to end by showing an example of a good, bad, and ugly forecast in order to help discuss when forecasting works and when it doesn't.
+
+The Good:
+
+![Image](images/the_good4.png)
+
+The Bad:
+
+![Image](images/the_bad4.png)
+
+The Ugly:
+
+![Image](images/the_ugly4.png)
+
+Notice the consistent trend and seasonality in The Good graph. This makes the prediction significantly more accurate. The Bad and The Ugly both have un predictable and significant changes in the Number of Products Sold which makes forecasting less reliable.  The biggest take away is that forecasting can not just solely be used on its own. It's imperative that it be coupled with domain knowledge and business insights. Because my data is anonymous and I lack the domain knowledge for the sake of this project, I may otherwise be able to improve some of my outliers by manually adjusting the forecast due to planned business or strategic initiatives which affect sales.
+
 ## Conclusion
-In conclusion, I accomplished my primary objective which was to build a model that can predict unit sales. I was able to build my model in a way where any individual product can be tested and reviewed. I learned that sales predictions for indivudal products can be difficult to predict, but the monthly level sales have more confidence.
-
-To Do:
-* Conduct more tests to establish the validity of the model
-* Tailor forecasts for each department and store
-* Explore more complex forecasting models including ARIMA and LSTM
-* Continue to adjust and review how the daily distribution compares to the final results
-* Examine weekly patterns in order to improve the daily distribution
-* Adjust daily distribution for holidays and events that may affect sales
-
-This project was very exciting to work on and I look forward to continuing my analysis. The implications for this model have major strategic benefits to businesses.
+Even though I originally wanted to project daily sales, I stepped back and focused more on forecasting monthly sales as accurately as possible. Monthly forecasting is still very useful to Walmart, or any business, because it gives insights into changing customer demand. It also allows businesses to allocate company resources in a strategic and mindful way in order to save money and keep customers satisfied.
 
 #### References
 * https://www.kaggle.com/c/m5-forecasting-accuracy
