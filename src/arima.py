@@ -23,6 +23,17 @@ def calculate_errors(actual, forecast):
 def arima_forecast(store_ids, dept_ids, art_dict, holdout_periods, interval):
     '''
     Estimates ARIMA parameters for all 70 groups and then forecasts
+
+    Args:
+        store_ids = store ids for 10 stores in dataset
+        dept_ids = department ids for 7 departments in dataset
+        art_dict = dictionary where some series have their training timeframes altered
+        holdout_periods = how many periods you want to forecast and compare against
+        interval = resamples daily sales to a different interval, ie monthly ('M')
+
+    Returns:
+        -A list of forecasts for all 70 groups (a store/department combination)
+        -A list of series for all 70 groups 
     '''
     lst_of_forecasts = []
     for _ in range(holdout_periods):
